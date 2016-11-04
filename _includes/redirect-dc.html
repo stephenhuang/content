@@ -1,0 +1,28 @@
+{% capture redirectlink %}
+  {{page.rdlink}}
+{% endcapture %}
+
+{% if page.rdlink %}
+  {% capture url %}
+    {{site.devcenterurl}}/{{page.rdlink}}
+  {% endcapture %}
+{% else %}
+  {% capture initurl %}
+    {{site.devcenterurl}}/{{page.url | remove_first: "en-US/" | remove_first: "zh-CN/" }}
+  {% endcapture %}
+  
+  {% if initurl contains 'samples' %}
+    {% assign url = initurl | remove_first: 'win10/' %}
+  {% else %}
+    {% assign url = initurl | replace: 'win10','docs' %}
+  {% endif %}
+{% endif %}
+
+
+<meta http-equiv="refresh" content="0;URL={{url}}">
+
+<script>
+    window.location = '{{url}}';
+</script>
+
+<p>Redirecting you to Developer Center... Click <a href="{{url}}">here</a> if you are not automatically redirected.</p>
